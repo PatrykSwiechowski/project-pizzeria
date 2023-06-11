@@ -51,7 +51,7 @@ dataSource.products = {
         label: 'Sauce',
         type: 'radios',
         options: {
-          tomato: {label: 'Tomato', price: 0, deafault: true},
+          tomato: {label: 'Tomato', price: 0, default: true},
           cream: {label: 'Sour cream', price: 2},
         },
       },
