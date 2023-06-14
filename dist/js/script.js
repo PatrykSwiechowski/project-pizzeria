@@ -220,32 +220,33 @@
 
       /*Dodawanie walidacji*/
 
-      thisWidget.value = newValue;
-      thisWidget.input.value = thisWidget.value;
-      if (thisWidget.value !== newValue) {
-        thisWidget.value = newValue;
-      } if (thisWidget.value !== newValue && !isNaN(newValue)) {
+      //thisWidget.value = newValue;
+      //thisWidget.input.value = thisWidget.value;
+      if ((thisWidget.value !== newValue && !isNaN(newValue)) &&
+        (value <= settings.amountWidget.defaultMax && value >= settings.amountWidget.defaultMin)) {
         thisWidget.value = newValue;
       }
+      thisWidget.input.value = thisWidget.value;
     }
 
     initActions() {
       const thisWidget = this;
       thisWidget.input.addEventListener('change', function () {
-        thisWidget.input.value.setValue()
+        thisWidget.setValue(thisWidget.input.value);
       })
-      thisWidget.inputDecrease.addEventListener('click', function(event){
+      thisWidget.inputDecrease.addEventListener('click', function (event) {
         event.preventDefault();
         let thisWidgetDecrease = thisWidget.value - 1;
         thisWidget.setValue(thisWidgetDecrease);
       })
-      thisWidget.inputIncrease.addEventListener('click', function(event){
+      thisWidget.inputIncrease.addEventListener('click', function (event) {
         event.preventDefault();
-        let thisWidgetIncrease = thisWidget.value +1;
+        let thisWidgetIncrease = thisWidget.value + 1;
         thisWidget.setValue(thisWidgetIncrease);
       })
+
     }
-    
+
   }
 
 
