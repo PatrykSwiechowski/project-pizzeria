@@ -92,6 +92,8 @@
       thisProduct.id = id;
       thisProduct.data = data;
 
+      console.log('product', thisProduct);
+
 
 
       /* Ta linia Zadba oto, żeby nasz konstruktor uruchomił tę funkcję od razu po utworzeniu instancji.*/
@@ -171,6 +173,7 @@
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
     processOrder() {
@@ -224,6 +227,7 @@
       }
       price *= thisProduct.amountWidget.value;
       // update calculated price in the HTML
+      thisProduct.priceSingle = price;
       thisProduct.priceElem.innerHTML = price;
     }
 
@@ -233,6 +237,26 @@
       thisProduct.amountWidgetElem.addEventListener('update', function () {
         thisProduct.processOrder();
       });
+    }
+    addToCart() {
+      const thisProduct = this;
+
+      app.cart.add(thisProduct)
+      app.cart.add(thisProduct.prepareCartProduct);
+    }
+
+    prepareCartProduct() {
+      const thisProduct = this;
+
+      productSummary = {
+        id: thisProduct.id,
+        name: thisProduct.data.name,
+        amount: thisProduct.amountWidget.value,
+        priceSingle: thisProduct.priceSingle,
+        price: thisProduct.priceSingle*thisProduct.AmountWidget.value,
+        params: {}
+      };
+      return productSummary;
     }
   }
   class AmountWidget {
@@ -328,6 +352,12 @@
       thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive)
       });
+    }
+
+    add(menuProduct) {
+      //const thisCart= this
+
+      console.log('adding product', menuProduct);
     }
   }
 
