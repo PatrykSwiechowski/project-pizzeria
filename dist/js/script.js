@@ -389,16 +389,43 @@
     }
 
     add(menuProduct) {
-      const thisCart= this
+      const thisCart = this
 
       const generatedHTML = templates.cartProduct(thisCart.data);
       thisCart.element = utils.createDOMFromHTML(generatedHTML);
       const cartContainer = document.querySelector(select.containerOf.cart);
       console.log(cartContainer);
       cartContainer.appendChild(thisCart.element);
-      
+
       console.log('adding product', menuProduct);
     }
+  }
+
+  class CartProduct {
+    constructor(menuProduct, element) {
+      const thisCartProduct = this;
+      console.log('this CartProduct', thisCartProduct);
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.data.name = menuProduct.data.name;
+      thisCartProduct.data.price = menuProduct.data.price;
+      thisCartProduct.data.priceSingle = menuProduct.data.priceSingle;
+
+    }
+    getElements(element){
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+
+      thisCartProduct.dom.wrapper = element;
+
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector('.widget-amount');
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector('.cart__product-price');
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector('[href="#edit"]');
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector('[href="#remove"]');
+
+    }
+
   }
 
 
