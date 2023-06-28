@@ -241,7 +241,6 @@
     addToCart() {
       const thisProduct = this;
 
-      app.cart.add(thisProduct)
       app.cart.add(thisProduct.prepareCartProduct());
     }
 
@@ -253,7 +252,7 @@
         name: thisProduct.data.name,
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
-        price: thisProduct.priceSingle * thisProduct.AmountWidget,
+        price: thisProduct.priceSingle * AmountWidget.value,
         params: thisProduct.prepareCartProductParams()
       };
       return productSummary;
@@ -391,25 +390,28 @@
     add(menuProduct) {
       const thisCart = this
 
-      const generatedHTML = templates.cartProduct(thisCart.data);
-      thisCart.element = utils.createDOMFromHTML(generatedHTML);
-      const cartContainer = document.querySelector(select.containerOf.cart);
-      console.log(cartContainer);
-      cartContainer.appendChild(thisCart.element);
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
 
       console.log('adding product', menuProduct);
+
+      thisCart.products.push(menuProduct);
+      console.log('thisCart.products', thisCart.products);
     }
   }
 
-  class CartProduct {
+ /* class CartProduct {
     constructor(menuProduct, element) {
       const thisCartProduct = this;
-      console.log('this CartProduct', thisCartProduct);
+      thisCartProduct.getElements(element);
+      thisCartProduct.initActions();
 
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.data.name = menuProduct.data.name;
       thisCartProduct.data.price = menuProduct.data.price;
       thisCartProduct.data.priceSingle = menuProduct.data.priceSingle;
+      console.log('CartProduct', thisCartProduct);
 
     }
     getElements(element){
@@ -425,8 +427,9 @@
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector('[href="#remove"]');
 
     }
+  }*/
 
-  }
+  
 
 
 
