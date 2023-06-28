@@ -110,8 +110,8 @@
       const thisProduct = this;
       /* generate HTML based on template*/
       const generatedHTML = templates.menuProduct(thisProduct.data);
-      console.log(generatedHTML);
       /* create element using utilis.createElementFromHTML*/
+      //stworzony element DOM zapisujemy od razu jako właściwość naszej instancji
       thisProduct.element = utils.createDOMFromHTML(generatedHTML); /*JS nie ma wbudowanej metody, która służy do tego celu – dlatego skorzystamy z jednej z funkcji zawartych w obiekcie utils*/
       /* find menu container*/
       const menuContainer = document.querySelector(select.containerOf.menu);
@@ -176,6 +176,7 @@
         thisProduct.addToCart();
       });
     }
+    //Nie do końca zrozumiane
     processOrder() {
       const thisProduct = this;
 
@@ -252,7 +253,7 @@
         name: thisProduct.data.name,
         amount: thisProduct.amountWidget.value,
         priceSingle: thisProduct.priceSingle,
-        price: thisProduct.priceSingle * AmountWidget.value,
+        price: thisProduct.priceSingle * thisProduct.amountWidget.value,
         params: thisProduct.prepareCartProductParams()
       };
       return productSummary;
@@ -401,7 +402,7 @@
     }
   }
 
- /* class CartProduct {
+  /*class CartProduct {
     constructor(menuProduct, element) {
       const thisCartProduct = this;
       thisCartProduct.getElements(element);
@@ -427,6 +428,14 @@
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector('[href="#remove"]');
 
     }
+
+    initActions() {
+      const thisCartProduct = this;
+
+      thisCartProduct.dom.amountWidget.addEventListener('click', function () {
+        thisCartProduct.dom.wrapper.toggle(select.cartProduct.price)
+      });
+    }
   }*/
 
   
@@ -440,10 +449,12 @@
       const thisApp = this;
 
       console.log('thisApp.data:', thisApp.data);
+      //W tej pętli tworzymy instancje dla każdego produktu
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
     },
+    //Dostęp do danych z pliku data za pomocą referencji
     initData: function () {
       const thisApp = this;
 
