@@ -1,4 +1,4 @@
-import AmountWidget from "./components/AmountWidget.js";
+import AmountWidget from "./AmountWidget.js";
 
 class CartProduct {
     constructor(menuProduct, element) {
